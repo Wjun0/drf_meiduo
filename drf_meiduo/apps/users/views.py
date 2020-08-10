@@ -14,12 +14,25 @@ from drf_meiduo.apps.users.serializers import UserSerializer, UserDetailSerializ
 from . import constants
 from drf_meiduo.utils.response_code import RETCODE
 
+
+
+class EmailVerification(APIView):
+    def put(self,request):
+        token = request.query_params.get('token')
+        if not token:
+            return Response({'message':"缺少token"},status=status.HTTP_400_BAD_REQUEST)
+        user = User.check_email_token(token)
+
+        if user is None:
+            return Response({'message':"连接无效"},status=status.HTTP_400_BAD_REQUEST)
+        user.email_active = True
+        user.save()
+        return Response({'message':"ok"})
+
 class EmailView(UpdateAPIView):
     serializer_class = EmailSerializer
     def get_object(self):
         return self.request.user
-
-
 
 class UserDetailView(RetrieveAPIView):
     serializer_class = UserDetailSerializer

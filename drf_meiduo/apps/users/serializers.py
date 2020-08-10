@@ -18,10 +18,14 @@ class EmailSerializer(serializers.ModelSerializer):
         }
 
     def update(self, instance, validated_data):
+        email = validated_data['email']
         instance.email = validated_data['email']
         instance.save()
 
         # 发送邮箱验证
+        veryify_url = instance.generate_veryify_email_url()
+        from celery_tasks.email.tasks import send_verify_email
+        send_verify_email.delay(email,veryify_url)
 
         return instance
 
