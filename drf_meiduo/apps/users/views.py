@@ -4,15 +4,27 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_redis import get_redis_connection
 
 from drf_meiduo.apps.users.models import User
-from drf_meiduo.apps.users.serializers import UserSerializer
+from drf_meiduo.apps.users.serializers import UserSerializer, UserDetailSerializer, EmailSerializer
 from . import constants
 from drf_meiduo.utils.response_code import RETCODE
+
+class EmailView(UpdateAPIView):
+    serializer_class = EmailSerializer
+    def get_object(self):
+        return self.request.user
+
+
+
+class UserDetailView(RetrieveAPIView):
+    serializer_class = UserDetailSerializer
+    def get_object(self):
+        return self.request.user
 
 #注册用户
 class UserView(CreateAPIView):

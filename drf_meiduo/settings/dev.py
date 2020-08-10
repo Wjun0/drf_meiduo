@@ -201,3 +201,12 @@ CACHES = {
 # SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 # 指定session存储到缓存空间的名称
 # SESSION_CACHE_ALIAS = "session"
+
+
+# 发送邮件设置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '18212707348@163.com'
+EMAIL_HOST_PASSWORD = 'XXSJSWBSYBHMGEPG'
+EMAIL_FROM = 'wangjun<18212707348@163.com>'

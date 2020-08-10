@@ -7,6 +7,30 @@ from drf_meiduo.apps.users.models import User
 
 from rest_framework_jwt.settings import api_settings
 
+class EmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id','email')
+        extra_kwargs = {
+            'email':{
+                'required':True
+            }
+        }
+
+    def update(self, instance, validated_data):
+        instance.email = validated_data['email']
+        instance.save()
+
+        # 发送邮箱验证
+
+        return instance
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id','username','mobile','email','email_active')
+
 
 class UserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(label='确认密码', write_only=True)
