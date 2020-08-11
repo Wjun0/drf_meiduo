@@ -212,3 +212,16 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = '18212707348@163.com'
 EMAIL_HOST_PASSWORD = 'XXSJSWBSYBHMGEPG'
 EMAIL_FROM = 'wangjun<18212707348@163.com>'
+
+
+# 视图缓存配置
+REST_FRAMEWORK_EXTENSIONS = {
+    # 不缓存报错
+    'DEFAULT_CACHE_ERRORS': False,
+    # 指定key_func 函数
+    # 'DEFAULT_CACHE_KEY_FUNC': 'rest_framework_extensions.utils.default_cache_key_func',
+    # 指定缓存时间
+    'DEFAULT_CACHE_RESPONSE_TIMEOUT': 60 * 15,
+    # 指定缓存配置
+    'DEFAULT_USE_CACHE': 'session'
+}

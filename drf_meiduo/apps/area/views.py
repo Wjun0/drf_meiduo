@@ -7,6 +7,8 @@ from rest_framework.views import APIView
 
 from drf_meiduo.apps.area.serializers import AreaSearializer,RetriverAreasSerializer
 from . models import Area
+from rest_framework_extensions.cache.decorators import cache_response
+
 
 class AreasView(ListAPIView):
     queryset = Area.objects.all()
@@ -23,7 +25,18 @@ class AreasView(ListAPIView):
 
 
 class RetriveAreasView(APIView):
+    # @cache_response(timeout=60*60,key_func='cache_key_func',cache='session')
+    @cache_response(key_func='cache_key_func')
     def get(self,request,pk):
         queryset = Area.objects.filter(id=pk).first()
         serailizer = RetriverAreasSerializer(queryset)
         return Response(serailizer.data)
+
+    def cache_key_func(self,view_instance,view_method,request,args,kwargs):
+        print(view_instance)
+        print(view_method)
+        print(request)
+        print(args)
+        print(kwargs)
+        print(kwargs.get('pk'))
+        return kwargs.get('pk')
