@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_extensions',
     'users.apps.UsersConfig',
+    'area',
 ]
 
 MIDDLEWARE = [

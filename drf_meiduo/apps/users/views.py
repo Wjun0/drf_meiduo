@@ -13,7 +13,7 @@ from drf_meiduo.apps.users.models import User
 from drf_meiduo.apps.users.serializers import UserSerializer, UserDetailSerializer, EmailSerializer
 from . import constants
 from drf_meiduo.utils.response_code import RETCODE
-
+from rest_framework.permissions import IsAuthenticated
 
 
 class EmailVerification(APIView):
@@ -31,6 +31,7 @@ class EmailVerification(APIView):
 
 class EmailView(UpdateAPIView):
     serializer_class = EmailSerializer
+    permission_classes = [IsAuthenticated]
     def get_object(self):
         return self.request.user
 
