@@ -5,7 +5,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from drf_meiduo.apps.area.serializers import AreaSearializer
+from drf_meiduo.apps.area.serializers import AreaSearializer,RetriverAreasSerializer
 from . models import Area
 
 class AreasView(ListAPIView):
@@ -19,3 +19,11 @@ class AreasView(ListAPIView):
     #     queryset = Area.objects.filter(parent=None).all()
     #     serializer = AreaSearializer(queryset,many=True)
     #     return Response(serializer.data)
+
+
+
+class RetriveAreasView(APIView):
+    def get(self,request,pk):
+        queryset = Area.objects.filter(id=pk).first()
+        serailizer = RetriverAreasSerializer(queryset)
+        return Response(serailizer.data)

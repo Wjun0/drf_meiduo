@@ -15,3 +15,10 @@ class AreaSearializer(serializers.ModelSerializer):
                 'read_only':True
             }
         }
+
+class RetriverAreasSerializer(serializers.ModelSerializer):
+    subs = AreaSearializer(many=True,read_only=True)
+
+    class Meta:
+        model = Area
+        fields = ('id','name','subs')
