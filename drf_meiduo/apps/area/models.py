@@ -3,7 +3,6 @@ from django.db import models
 # Create your models here.
 
 
-
 class Area(models.Model):
     '''行政区域'''
     name = models.CharField(max_length=20,verbose_name='行政区域名')
