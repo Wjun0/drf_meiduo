@@ -14,8 +14,8 @@ class AddressSerializer(serializers.ModelSerializer):
     district_id = serializers.IntegerField()
     class Meta:
         model = Address
-        fields = ('title','tel','receiver','province','place','mobile','email','district','city','province_id','city_id','district_id')
-        # exclude = ('user','is_delete','create_time','update_time')
+        fields = ('id','title','tel','receiver','province','place','mobile','email','district','city','province_id','city_id','district_id')
+        # exclude = ('user','is_deleted','create_time','update_time')
 
     def validate(self, attrs):
         mobile = attrs['mobile']

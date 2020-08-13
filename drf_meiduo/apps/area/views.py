@@ -20,12 +20,21 @@ from rest_framework_extensions.cache.decorators import cache_response
 class AddressesView(APIView):
     # serializer_class = AddressSerializer
     # queryset = Address
-    def get(self):
-        pass
+    def get(self,request):
+        queryset = Address.objects.filter(user=request.user,is_deleted=False).all()
+        serializer = AddressSerializer(instance=queryset,many=True)
+        default_address = request.user.default_address_id
+        user_id = request.user.id
+        limit = 5
+        return Response({'user_id':user_id,
+                         'default_address_id':default_address,
+                         'limit':limit,
+                         'addresses':serializer.data
+                         })
+
+
     def post(self,request):
         data = request.data
-        print(data)
-        # data['user'] = request.user
         serializer = AddressSerializer(data=data,context={'request':request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
