@@ -1,12 +1,13 @@
 from django.shortcuts import render
 
 # Create your views here.
+from rest_framework import status
 from rest_framework.generics import ListAPIView,CreateAPIView,GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from drf_meiduo.apps.area.serializers import AreaSearializer, RetriverAreasSerializer, AddressSerializer
-from drf_meiduo.apps.users.models import Address
+from drf_meiduo.apps.users.models import Address, User
 from . models import Area
 from rest_framework_extensions.cache.decorators import cache_response
 
@@ -16,6 +17,12 @@ from rest_framework_extensions.cache.decorators import cache_response
 # DELETE /addresses/<pk>/  删除 -> destroy
 # PUT /addresses/<pk>/status/ 设置默认 -> status
 # PUT /addresses/<pk>/title/  设置标题 -> title
+
+class AddressDefault(APIView):
+    def put(self,request,pk):
+        User.objects.filter(id=request.user.id).update(default_address=pk)
+        return Response({'message':"ok"})
+
 
 class AddressesView(APIView):
     # serializer_class = AddressSerializer
@@ -61,8 +68,10 @@ class AddressesView(APIView):
         return Response(serializer.data)
 
 
-    def delete(self,reqeust):
-        pass
+    def delete(self,reqeust,pk):
+        Address.objects.filter(id=pk).update(is_deleted=True)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 
 class AreasView(ListAPIView):
