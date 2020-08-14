@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'area.apps.AreaConfig',
     'users.apps.UsersConfig',
+    'contents',
 
 ]
 
