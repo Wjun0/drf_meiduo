@@ -18,6 +18,11 @@ from rest_framework_extensions.cache.decorators import cache_response
 # PUT /addresses/<pk>/status/ 设置默认 -> status
 # PUT /addresses/<pk>/title/  设置标题 -> title
 
+class AddressTitle(APIView):
+    def put(self,request,pk):
+        Address.objects.filter(id=pk).update(title=request.data.get('title'))
+        return Response({'message':"ok"})
+
 class AddressDefault(APIView):
     def put(self,request,pk):
         User.objects.filter(id=request.user.id).update(default_address=pk)

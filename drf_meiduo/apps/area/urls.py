@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^addresses/$',views.AddressesView.as_view()),
     url(r'^addresses/(?P<pk>\d+)/$',views.AddressesView.as_view()),
     url(r'^addresses/(?P<pk>\d+)/status/$',views.AddressDefault.as_view()),
+    url(r'^addresses/(?P<pk>\d+)/title/$',views.AddressTitle.as_view()),
 ]
