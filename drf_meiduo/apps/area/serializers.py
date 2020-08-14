@@ -16,6 +16,9 @@ class AddressSerializer(serializers.ModelSerializer):
         model = Address
         fields = ('id','title','tel','receiver','province','place','mobile','email','district','city','province_id','city_id','district_id')
         # exclude = ('user','is_deleted','create_time','update_time')
+        extra_kwargs = {
+            'id':{'read_only':True}
+        }
 
     def validate(self, attrs):
         mobile = attrs['mobile']

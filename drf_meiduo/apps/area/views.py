@@ -40,9 +40,28 @@ class AddressesView(APIView):
         serializer.save()
         return Response(serializer.data)
 
-    def put(self):
-        pass
-    def delete(self):
+    def put(self,request,pk):
+        data = request.data
+        # update_data = {'city':data['city_id'],
+        #                'district':data['district_id'],
+        #                'province':data['province_id'],
+        #                'receiver':data['receiver'],
+        #                'email':data['email'],
+        #                'tel':data['tel'],
+        #                'title':data['title'],
+        #                'place':data['place'],
+        #                }
+        # Address.objects.filter(id=pk).update(**update_data)    # 返回值是更新的条数
+        # serializer = AddressSerializer(Address.objects.get(id=pk))
+        # return Response(serializer.data)
+        queryset = Address.objects.get(id=pk)
+        serializer = AddressSerializer(instance=queryset,data=data)
+        serializer.is_valid()
+        serializer.save()
+        return Response(serializer.data)
+
+
+    def delete(self,reqeust):
         pass
 
 
