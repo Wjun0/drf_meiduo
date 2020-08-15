@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'area.apps.AreaConfig',
     'users.apps.UsersConfig',
     'contents',
+    'goods',
 
 ]
 
