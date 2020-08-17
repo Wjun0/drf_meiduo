@@ -2,7 +2,8 @@ from django.db import models
 
 # Create your models here.
 from drf_meiduo.utils.models import BaseModel
-
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class GoodsCategory(BaseModel):
     '''商品类别'''
@@ -51,9 +52,11 @@ class Goods(BaseModel):
     category1 = models.ForeignKey(GoodsCategory,related_name='cat_goods1',on_delete=models.PROTECT,verbose_name='一级类别')
     category2 = models.ForeignKey(GoodsCategory,related_name='cat_goods2',on_delete=models.PROTECT,verbose_name='二级类别')
     category3 = models.ForeignKey(GoodsCategory,related_name='cat_goods3',on_delete=models.PROTECT,verbose_name='三级类别')
-    saies = models.IntegerField(default=0,verbose_name='销量')
+    sales = models.IntegerField(default=0,verbose_name='销量')
     comments = models.IntegerField(default=0,verbose_name='评论量')
-
+    desc_detail = RichTextUploadingField(default='', verbose_name='详细介绍')
+    desc_pack = RichTextField(default='', verbose_name='包装信息')
+    desc_service = RichTextUploadingField(default='', verbose_name='售后服务')
     class Meta:
         db_table = 'tb_goods'
         verbose_name = '商品spu'
@@ -100,10 +103,11 @@ class SKU(BaseModel):
     price = models.DecimalField(max_digits=10,decimal_places=2,verbose_name='单价')
     cost_price = models.DecimalField(max_digits=10,decimal_places=2,verbose_name='进价')
     market_price = models.DecimalField(max_digits=10,decimal_places=2,verbose_name='市场价')
+    stock = models.IntegerField(default=0, verbose_name='库存')
     sales = models.IntegerField(default=0,verbose_name='销量')
     comments = models.IntegerField(default=0,verbose_name='评论量')
     is_launched = models.BooleanField(default=True,verbose_name='是否上架')
-    default_inage_url = models.CharField(max_length=100,null=True,default='',blank=True,verbose_name='默认图片地址')
+    default_image_url = models.CharField(max_length=100,null=True,default='',blank=True,verbose_name='默认图片地址')
     class Meta:
         db_table = 'tb_sku'
         verbose_name = '商品SKU'
@@ -116,7 +120,7 @@ class SKU(BaseModel):
 class SKUImage(BaseModel):
     '''SKU图片'''
     sku = models.ForeignKey(SKU,on_delete=models.CASCADE,verbose_name='所属SKU')
-    image = models.CharField(max_length=100,verbose_name='图片连接地址')
+    image = models.ImageField(max_length=100,verbose_name='图片连接地址')
 
     class Meta:
         db_table = 'tb_sku_image'

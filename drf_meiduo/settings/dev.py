@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'contents',
     'goods',
     'pictest',
+    'ckeditor', #注册富文本编辑器
+    'ckeditor_uploader'   #组测上传图片模块
 
 ]
 
@@ -235,3 +237,14 @@ FDFS_CLIENT_CONF = os.path.join(BASE_DIR,'utils/fastdfs/client.conf')
 FDFS_URL= '192.168.59.129:8888/'
 # 指定django 使用的文件存储类
 DEFAULT_FILE_STORAGE = 'drf_meiduo.utils.fastdfs.storage.FDFSStorage'
+
+# 富文本编辑器ckeditor配置
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',  # 工具条功能
+        'height': 300,  # 编辑器高度
+        # 'width': 300,  # 编辑器宽
+    },
+}
+
+CKEDITOR_UPLOAD_PATH = '' #上传图片路径，使用了fdfs 所以为''

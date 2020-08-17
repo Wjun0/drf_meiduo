@@ -10,3 +10,5 @@ class PicTest(models.Model):
         db_table = 'tb_pics'
         verbose_name = '上传图片'
         verbose_name_plural = verbose_name
+    def __str__(self):
+        return '图片：%s'%(self.image)
