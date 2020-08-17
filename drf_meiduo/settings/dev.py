@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'contents',
     'goods',
+    'pictest',
 
 ]
 
@@ -99,7 +100,7 @@ DATABASES = {
         # 'NAME': os.path.join(BASE_DIR, '../../db.sqlite3'),
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'drf_meiduo',
-        'HOST': '127.0.0.1',
+        'HOST': '192.168.133.1',
         'PORT': 3306,
         'USER': 'wangjun',
         'PASSWORD': 'wangjun'
@@ -227,3 +228,10 @@ REST_FRAMEWORK_EXTENSIONS = {
     # 指定缓存配置
     'DEFAULT_USE_CACHE': 'session'
 }
+
+#指定fasffds 配置文件
+FDFS_CLIENT_CONF = os.path.join(BASE_DIR,'utils/fastdfs/client.conf')
+# 请求路径前缀
+FDFS_URL= '192.168.59.129:8888/'
+# 指定django 使用的文件存储类
+DEFAULT_FILE_STORAGE = 'drf_meiduo.utils.fastdfs.storage.FDFSStorage'
